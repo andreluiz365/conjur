@@ -39,6 +39,7 @@ Feature: Rotate a host api key using the host factory.
     And I authorize the request with the host factory token
     And I POST "/host_factories/hosts?id=brand-new-host"
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
 
   Scenario: The host factory can rotate the host api key
 

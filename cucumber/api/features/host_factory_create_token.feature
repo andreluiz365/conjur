@@ -11,12 +11,14 @@ Feature: Create a host factory token.
 
     When I POST "/host_factory_tokens?host_factory=cucumber:host_factory:the-layer-factory&expiration=2050-12-31" with in-body params
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   Scenario: Unauthorized users cannot create host factory tokens.
     Given I permit user "alice" to "read" it
     And I login as "alice"
     When I POST "/host_factory_tokens?host_factory=cucumber:host_factory:the-layer-factory&expiration=2050-12-31"
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
 
   Scenario: A host factory token can be created by specifying an expiration time.
     Given I permit user "alice" to "execute" it

@@ -62,15 +62,18 @@ Feature: Conjur signs certificates using a configured CA
   Scenario: A non-existent ca returns a 404
     When I POST "/ca/cucumber/living-room/sign"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   Scenario: A login that isn't a host returns a 403
     When I POST "/ca/cucumber/kitchen/sign"
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
 
   Scenario: The service returns 403 Forbidden if the host doesn't have sign privileges
     Given I login as "cucumber:host:toast"
     When I send a CSR for "toast" to the "kitchen" CA with a ttl of "P6M" and CN of "toast"
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
 
   Scenario: I can sign a valid CSR with a configured Conjur CA
     Given I login as "cucumber:host:bacon"
@@ -94,4 +97,5 @@ Feature: Conjur signs certificates using a configured CA
     Given I login as "cucumber:host:table"
     When I send a CSR for "table" to the "dining-room" CA with a ttl of "P6M" and CN of "table"
     Then the HTTP response status code is 201
+    And the HTTP response content type is "application/json; charset=utf-8"
     And the resulting json certificate is valid according to the "dining-room" intermediate CA

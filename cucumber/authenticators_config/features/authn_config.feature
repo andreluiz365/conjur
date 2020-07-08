@@ -71,6 +71,7 @@ Feature: Authenticator configuration
     enabled=false
     """
     Then the HTTP response status code is 204
+    And the HTTP response content type is "application/json"
     And authenticator "cucumber:webservice:conjur/authn-config/db" is disabled
 
   Scenario: Authenticator account does not exist
@@ -81,6 +82,7 @@ Feature: Authenticator configuration
     enabled=true
     """
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
     And The following appears in the log after my savepoint:
     """
     Errors::Authentication::Security::AccountNotDefined
@@ -94,6 +96,7 @@ Feature: Authenticator configuration
     enabled=true
     """
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
     And The following appears in the log after my savepoint:
     """
     Errors::Authentication::Security::WebserviceNotFound
@@ -107,6 +110,7 @@ Feature: Authenticator configuration
     enabled=true
     """
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
     And authenticator "cucumber:webservice:conjur/authn-config/db" is disabled
     And The following appears in the log after my savepoint:
     """
@@ -121,6 +125,7 @@ Feature: Authenticator configuration
     enabled=true
     """
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
     And The following appears in the log after my savepoint:
     """
     Errors::Authentication::AuthenticatorNotFound

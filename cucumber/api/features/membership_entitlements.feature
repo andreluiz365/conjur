@@ -92,6 +92,7 @@ Feature: Manage the role entitlements through the API
     Given I login as "bob"
     When I POST "/roles/cucumber/group/dev%2Fdevelopers?members&member=cucumber:user:bob"
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
 
   Scenario: Attempt to add a member twice
 

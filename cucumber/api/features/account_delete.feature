@@ -34,6 +34,7 @@ Feature: Delete an account
     Given I login as "!:user:unprivileged"
     When I DELETE "/accounts/new.account"
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
     And the result is empty
 
   Scenario: Root policy can be reloaded after DELETE

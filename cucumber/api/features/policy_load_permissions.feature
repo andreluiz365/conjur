@@ -37,6 +37,7 @@ Feature: Updating policies
     - !variable a
     """
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   Scenario: `create` privilege is sufficient to add records to a policy via POST.
     When I login as "alice"

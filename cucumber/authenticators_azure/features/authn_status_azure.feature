@@ -48,6 +48,7 @@ Feature: Azure Authenticator - Status Check
     And I login as "alice"
     When I GET "/authn-azure/prod/cucumber/status"
     Then the HTTP response status code is 200
+    And the HTTP response content type is "application/json"
     And the authenticator status check succeeds
 
   Scenario: A non-responsive Azure AD provider returns a 500 response
@@ -98,6 +99,7 @@ Feature: Azure Authenticator - Status Check
     And I login as "alice"
     When I GET "/authn-azure/prod/cucumber/status"
     Then the HTTP response status code is 500
+    And the HTTP response content type is "application/json"
     And the authenticator status check fails with error "ProviderDiscoveryFailed: CONJ00011E"
 
   Scenario: provider-uri variable is missing and a 500 error response is returned
@@ -144,6 +146,7 @@ Feature: Azure Authenticator - Status Check
     And I login as "alice"
     When I GET "/authn-azure/prod/cucumber/status"
     Then the HTTP response status code is 500
+    And the HTTP response content type is "application/json"
     And the authenticator status check fails with error "RequiredResourceMissing: CONJ00036E"
 
   # TODO: add this tes when issue #1085 is done

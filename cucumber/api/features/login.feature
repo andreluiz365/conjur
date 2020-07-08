@@ -19,6 +19,7 @@ Feature: Exchange a role's password for its API key
 
     When I GET "/authn/cucumber/login"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
 
   @logged-in-admin
   Scenario: "Super" users cannot login as other users
@@ -27,3 +28,4 @@ Feature: Exchange a role's password for its API key
 
     When I GET "/authn/cucumber/login?role=user:alice"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"

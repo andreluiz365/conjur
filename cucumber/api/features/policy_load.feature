@@ -77,6 +77,7 @@ Feature: Updating policies
     - !layer
     """
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
 
   Scenario: A policy with special characters and no content type header
     When I use curl to load a policy with special characters and no content type
@@ -86,3 +87,4 @@ Feature: Updating policies
     When I clear the "Content-Type" header
     And I load a large policy with POST
     Then the HTTP response status code is 201
+    And the HTTP response content type is "application/json"

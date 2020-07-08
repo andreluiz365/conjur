@@ -34,36 +34,44 @@ Feature: Batch retrieval of secrets
   Scenario: Fails with 422 if variable_ids param is missing
     When I GET "/secrets"
     Then the HTTP response status code is 422
+    And the HTTP response content type is "application/json"
 
   Scenario: Fails with 422 if variable_ids param is empty
     When I GET "/secrets?variable_ids="
     Then the HTTP response status code is 422
+    And the HTTP response content type is "application/json"
 
   Scenario: Fails with 422 if variable_ids param has only blank items
     When I GET "/secrets?variable_ids=,,,"
     Then the HTTP response status code is 422
+    And the HTTP response content type is "application/json"
 
   Scenario: Fails with 403 if execute privilege is not held
     When I am a user named "someone-else"
     And I GET "/secrets?variable_ids=cucumber:variable:secret1"
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
 
   Scenario: Fails with 404 if variable_ids param has some blank items
     When I GET "/secrets?variable_ids=cucumber:variable:secret1,,,cucumber:variable:secret2"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   Scenario: Fails with 404 if a variable_id param is of an incorrect format
     When I GET "/secrets?variable_ids=1,2,3"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   Scenario: Fails with 404 if a resource doesn't exist
     When I GET "/secrets?variable_ids=cucumber:variable:secret1,cucumber:variable:not-a-secret"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   Scenario: Fails with 404 if a resource doesn't have a value
     Given I create a new "variable" resource called "secret-no-value"
     When I GET "/secrets?variable_ids=cucumber:variable:secret1,cucumber:variable:secret-no-value"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   # This test explicitly tests an error case that was discovered in Conjur v4 where
   # resource IDs were matched with incorrect variable values in the JSON response.

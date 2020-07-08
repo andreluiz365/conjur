@@ -21,11 +21,13 @@ Feature: Adding and fetching secrets
 
     When I GET "/secrets/cucumber/variable/probe"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   Scenario: Fetching a secret for a nonexistent resource
 
     When I GET "/secrets/cucumber/variable/non-existent"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   Scenario: The 'conjur/mime_type' annotation is used in the value response.
 
@@ -114,6 +116,7 @@ Feature: Adding and fetching secrets
     """
     When I GET "/secrets/cucumber/variable/probe?version=2"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
   Scenario: When creating a secret, the value parameter is required.
 
@@ -121,6 +124,7 @@ Feature: Adding and fetching secrets
     """
     """
     Then the HTTP response status code is 422
+    And the HTTP response content type is "application/json"
 
   Scenario: Only the last 20 versions of a secret are stored.
   
@@ -131,3 +135,4 @@ Feature: Adding and fetching secrets
     """
     When I GET "/secrets/cucumber/variable/probe?version=1"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"

@@ -31,4 +31,5 @@ Feature: List accounts
 
     When I GET "/accounts"
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
     And the result is empty

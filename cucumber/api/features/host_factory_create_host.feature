@@ -47,8 +47,10 @@ Feature: Create a host using the host factory.
     And I authorize the request with the host factory token
     When I POST "/host_factories/hosts?id=host-01"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
 
   Scenario: Attempting to create a host without id argument
     Given I authorize the request with the host factory token
     When I POST "/host_factories/hosts"
     Then the HTTP response status code is 422
+    And the HTTP response content type is "application/json"

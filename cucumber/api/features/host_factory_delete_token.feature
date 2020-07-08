@@ -9,11 +9,13 @@ Background:
   Scenario: Unauthorized users cannot delete host factory tokens.
     When I try to DELETE "/host_factory_tokens/@host_factory_token@"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
 
     Given I permit user "alice" to "execute" it
     When I login as "alice"
     And I try to DELETE "/host_factory_tokens/@host_factory_token@"
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
 
   Scenario: "delete" privilege on the host factory allows a user to delete 
     tokens.
@@ -29,3 +31,4 @@ Background:
     And I do DELETE "/host_factory_tokens/@host_factory_token@"
     And I try to DELETE "/host_factory_tokens/@host_factory_token@"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"

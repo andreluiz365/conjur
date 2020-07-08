@@ -50,6 +50,7 @@ Feature: Check whether a role has a privilege on a resource
     privilege: freeze
     """
     Then the HTTP response status code is 404
+    And the HTTP response content type is "text/html"
 
   Scenario: The new role can confirm that it may perform the granted action
 

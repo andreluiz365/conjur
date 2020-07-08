@@ -30,6 +30,7 @@ Feature: Change the password of a role
     Given I set the password for "alice" to "My-Password1"
     When I PUT "/authn/cucumber/password" with username "alice" and password "My-Password1" and plain text body "My-Passwor1"
     Then the HTTP response status code is 422
+    And the HTTP response content type is "application/json"
 
   Scenario: Bearer token cannot be used to change the password
 
@@ -38,6 +39,7 @@ Feature: Change the password of a role
     Given I login as "alice"
     When I PUT "/authn/cucumber/password" with plain text body "new-password"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
 
   @logged-in-admin
   Scenario: "Super" users cannot update user passwords
@@ -46,3 +48,4 @@ Feature: Change the password of a role
 
     When I PUT "/authn/cucumber/password?role=user:alice" with plain text body "new-password"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"

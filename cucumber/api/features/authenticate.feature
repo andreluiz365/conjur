@@ -28,6 +28,7 @@ Feature: Exchange a role's API key for a signed authentication token
   Scenario: Attempting to use an invalid API key to authenticate result in 401 error
     When I POST "/authn/cucumber/alice/authenticate" with plain text body "wrong-api-key"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
     And there is an audit record matching:
     """
       <84>1 * * conjur * authn
@@ -45,6 +46,7 @@ Feature: Exchange a role's API key for a signed authentication token
     Given I create a new user "alice" in account "second-account"
     When I POST "/authn/second-account/alice/authenticate" with plain text body ":cucumber:user:alice_api_key"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
 
   Scenario: Auth tokens cannot be refreshed
 
@@ -54,6 +56,7 @@ Feature: Exchange a role's API key for a signed authentication token
     Given I login as "alice"
     When I POST "/authn/cucumber/alice/authenticate"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
 
   @logged-in-admin
   Scenario: Roles cannot authenticate as any role other than themselves.
@@ -62,11 +65,13 @@ Feature: Exchange a role's API key for a signed authentication token
 
     When I POST "/authn/cucumber/alice/authenticate" with plain text body "wrong-api-key"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
 
   Scenario: A non existing user cannot authenticate
     Given I save my place in the log file
     When I POST "/authn/cucumber/non-existing/authenticate"
     Then the HTTP response status code is 401
+    And the HTTP response content type is "text/html"
     And The following appears in the log after my savepoint:
     """
     Errors::Authentication::Security::RoleNotFound

@@ -28,6 +28,7 @@ Feature: RBAC privileges control whether a role can update and/or fetch a secret
     v-1
     """
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
     And there is an audit record matching:
     """
       <36>1 * * conjur * update
@@ -65,6 +66,7 @@ Feature: RBAC privileges control whether a role can update and/or fetch a secret
 
     When I GET "/secrets/cucumber/:resource_kind/:resource_id"
     Then the HTTP response status code is 404
+    And the HTTP response content type is "application/json"
     And there is an audit record matching:
     """
       <36>1 * * conjur * fetch

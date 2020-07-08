@@ -53,6 +53,7 @@ Feature: OIDC Authenticator - Status Check
     And I login as "alice"
     When I GET "/authn-oidc/keycloak/cucumber/status"
     Then the HTTP response status code is 200
+    And the HTTP response content type is "application/json"
     And the authenticator status check succeeds
 
   Scenario: A non-responsive OIDC provider returns a 500 response
@@ -109,6 +110,7 @@ Feature: OIDC Authenticator - Status Check
     And I login as "alice"
     When I GET "/authn-oidc/keycloak/cucumber/status"
     Then the HTTP response status code is 500
+    And the HTTP response content type is "application/json"
     And the authenticator status check fails with error "ProviderDiscoveryFailed: CONJ00011E"
 
   Scenario: provider-uri variable is missing and a 500 error response is returned
@@ -161,6 +163,7 @@ Feature: OIDC Authenticator - Status Check
     And I login as "alice"
     When I GET "/authn-oidc/keycloak/cucumber/status"
     Then the HTTP response status code is 500
+    And the HTTP response content type is "application/json"
     And the authenticator status check fails with error "RequiredResourceMissing: CONJ00036E"
 
   Scenario: id-token-user-property variable is missing and a 500 error response is returned
@@ -213,6 +216,7 @@ Feature: OIDC Authenticator - Status Check
     And I login as "alice"
     When I GET "/authn-oidc/keycloak/cucumber/status"
     Then the HTTP response status code is 500
+    And the HTTP response content type is "application/json"
     And the authenticator status check fails with error "RequiredResourceMissing: CONJ00036E"
 
   # TODO: add these tests when issue #1085 is done

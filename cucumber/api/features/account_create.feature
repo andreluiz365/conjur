@@ -41,6 +41,7 @@ Feature: Create a new account
     }
     """
     Then the HTTP response status code is 403
+    And the HTTP response content type is "text/html"
     And the result is empty
 
   Scenario: An account cannot be created if it already exists.
